@@ -1,7 +1,6 @@
-# Placeholder
-
-
 class InstructionOutput(object):
+    """Instruction Ouptut model for the application"""
+
     varname = ""
     output = None
 

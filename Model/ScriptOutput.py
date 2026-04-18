@@ -1,12 +1,15 @@
-# Placeholder
+from uuid import uuid4
 
+from beanie import Document
+from pydantic import Field
+
+from DB.db import UUIDstr
 from Model.InstructionOutput import InstructionOutput
 
 
-class ScriptOutput(object):
-    id = 0
-    outputs_list: list[InstructionOutput] = []
-
-    def __init__(self, id=0, outputs_list: list[InstructionOutput] = []) -> None:
-        self.id = id
-        self.outputs_list = outputs_list
+class ScriptOutput(Document):
+    uuid: UUIDstr = Field(default_factory=uuid4)
+    outputs_list: list[InstructionOutput] = Field(
+        default_factory=list,
+        description="Instruction outputs associated with the Script",
+    )

@@ -1,5 +1,4 @@
 from LineParser import parse_line
-from Reader import Reader
 
 from Model.RegEx import RegEx
 
