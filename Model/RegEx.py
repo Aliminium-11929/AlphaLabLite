@@ -1,5 +1,5 @@
 class RegEx(object):
-    """A class to store a single instruction/regular expression in one object with static fields."""
+    """A class to store a single regular expression in one object with static fields."""
 
     varname: str = ""
     callname: str = ""

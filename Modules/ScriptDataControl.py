@@ -5,6 +5,7 @@ from Model.ScriptOutput import ScriptOutput
 
 
 def write(script_output: ScriptOutput) -> str:
+    """Writes a ScriptOutput object into its own JSON file."""
     json_string = json.dumps(script_output.toDict())
     id = str(script_output.id)
     os.makedirs("ScriptData", exist_ok=True)
@@ -14,6 +15,7 @@ def write(script_output: ScriptOutput) -> str:
 
 
 def get(str_id: str) -> dict:
+    """Reads a ScriptOutput parsed as a dictionary from a JSON file."""
     jsonData = {}  # in the form of { id: <some-id>, outputs_list: [ {varname, output} ] }
     try:
         with open(f"ScriptData/{str_id}.json", "r") as JSON:
@@ -21,16 +23,3 @@ def get(str_id: str) -> dict:
         return jsonData
     except FileNotFoundError:
         raise FileNotFoundError
-
-
-# # Test code:
-# test_script_output = write(
-#     ScriptOutput(
-#         [
-#             InstructionOutput("Oklahoma", "nothing"),
-#             InstructionOutput("newOklahoma", "newNothing"),
-#         ]
-#     )
-# )
-# gotten_script_output = get(test_script_output)
-# print(gotten_script_output)
