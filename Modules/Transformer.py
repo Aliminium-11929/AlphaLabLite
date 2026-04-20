@@ -9,15 +9,15 @@ def ConstantSeries(inputConf: list[str], inputSeries: list[list[float]]) -> list
     return B
 
 
-def CrossAbove(inputSeries: list[list[float]]) -> list[int]:
-    """Checks and returns a list of integers representing whether or not 2 input series intersected.
+def CrossAbove(inputSeries: list[list[float]]) -> list[float]:
+    """Checks and returns a list of floats representing whether or not 2 input series intersected.
     1 means they have intersected at the point of its index, 0 means they haven't."""
     A_1: list[float] = inputSeries[0]
     A_2: list[float] = inputSeries[1]
-    B: list[int] = [0] * len(A_1)
-    B[0] = 0
+    B: list[float] = [0.0] * len(A_1)
+    B[0] = 0.0
     for t in range(1, len(B)):
-        B[t] = 1 if (A_1[t - 1] < A_2[t - 1] and A_1[t] > A_2[t]) else 0
+        B[t] = 1.0 if (A_1[t - 1] < A_2[t - 1] and A_1[t] > A_2[t]) else 0.0
     return B
 
 
@@ -27,7 +27,7 @@ def ExponentialMovingAverage(
     """Calculates and outputs a series forming an exponential moving average."""
     A: list[float] = inputSeries[0]
     B: list[float] = [0.0] * len(A)
-    alpha: int = int(inputConf[0])
+    alpha: float = float(inputConf[0])
     for t in range(len(B)):
         if t == 0:
             B[t] = A[t]

@@ -4,3 +4,7 @@ Data/
 Modules/__pycache__/
 Model/__pycache__/
 AlphaLabLite.egg-info/
+__pycache__/
+testScript.txt
+ScriptData/
+test.py

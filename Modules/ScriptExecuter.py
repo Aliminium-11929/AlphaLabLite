@@ -23,13 +23,16 @@ def execute(
     """Executes a regular expression by taking into consideration variables from previous lines of the script."""
     regex_output = InstructionOutput(varname=regex.varname)
     local_inputSeries = []
+
     # RegEx:
     # varname: str
     # callname: str
     # inputConf: list[str]
     # inputSeries: list[str]
-    for alias in regex.inputSeries:
-        local_inputSeries.append(exists(alias, instruction_history).output)
+
+    def alias_output_finder():
+        for alias in regex.inputSeries:
+            local_inputSeries.append(exists(alias, instruction_history).output)
 
     match regex.callname:
         # Possible callnames: [Fetch, SimpleMovingAverage, ExponentialMovingAverage, RateOfChange, CrossAbove, ConstantSeries, PortfolioSimulation]
@@ -38,26 +41,32 @@ def execute(
                 inputConf=regex.inputConf,
             )
         case "SimpleMovingAverage":
+            alias_output_finder()
             regex_output.output = sma(
                 inputConf=regex.inputConf, inputSeries=local_inputSeries
             )
         case "ExponentialMovingAverage":
+            alias_output_finder()
             regex_output.output = ema(
                 inputConf=regex.inputConf, inputSeries=local_inputSeries
             )
         case "RateOfChange":
+            alias_output_finder()
             regex_output.output = roc(
                 inputConf=regex.inputConf, inputSeries=local_inputSeries
             )
         case "CrossAbove":
+            alias_output_finder()
             regex_output.output = ca(
                 inputSeries=local_inputSeries,
             )
         case "ConstantSeries":
+            alias_output_finder()
             regex_output.output = cs(
                 inputConf=regex.inputConf, inputSeries=local_inputSeries
             )
         case "PortfolioSimulation":
+            alias_output_finder()
             regex_output.output = ps(
                 inputConf=regex.inputConf, inputSeries=local_inputSeries
             )

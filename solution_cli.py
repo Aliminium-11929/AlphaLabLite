@@ -1,26 +1,47 @@
-import os
+import argparse
 
-from dotenv import load_dotenv
-
-from DB.mongo import init_database
-from Modules.Reader import Reader
+from execute import execute
+from view import view
 
 
-async def main():
-    load_dotenv()
+def execute_runner(args):
+    scriptlines: list[str] = []
+    try:
+        newLine = input()
+        while True:
+            scriptlines.append(newLine.strip())
+            newLine = input()
+    except EOFError:
+        clean_scriptlines = []
+        for line in scriptlines:
+            if line != "":
+                clean_scriptlines.append(line)
+        print(execute(script=scriptlines))
 
-    username = os.getenv("DB_USER")
-    passwd = os.getenv("DB_PASS")
-    mongo_uri_part_1 = os.getenv("MONGO_URI_PART_1")
-    mongo_uri_part_2 = os.getenv("MONGO_URI_PART_2")
 
-    csv_reader = Reader()
-    assert (
-        username is str
-        and passwd is str
-        and mongo_uri_part_1 is str
-        and mongo_uri_part_2 is str
-    ), print("Couldn't read database info from .env file.")
-    await init_database(
-        username=username, password=passwd, mongo_uri_part_2=mongo_uri_part_2
+def view_runner(args):
+    objectID = args.id
+    objectVarnames = args.varnames
+    print(view(id=objectID, varnames=objectVarnames))
+
+
+def main():
+    parser = argparse.ArgumentParser(description="CLI tool")
+    subparsers = parser.add_subparsers()
+    parser_execute = subparsers.add_parser(
+        "execute", help="Read entire stdin as input script"
     )
+    parser_execute.set_defaults(func=execute_runner)
+    parser_view = subparsers.add_parser("view", help="View items by ID")
+    parser_view.add_argument("--id", type=str)
+    parser_view.add_argument("varnames", nargs="*")
+    parser_view.set_defaults(func=view_runner)
+    args = parser.parse_args()
+    try:
+        args.func(args)
+    except AttributeError:
+        parser.print_help()
+
+
+if __name__ == "__main__":
+    main()
