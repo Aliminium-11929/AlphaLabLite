@@ -1,7 +1,7 @@
 import argparse
 
-from execute import execute
-from view import view
+from TLModules.execute import execute
+from TLModules.view import view
 
 
 def execute_runner(args):

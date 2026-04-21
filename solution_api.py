@@ -1,8 +1,8 @@
 from flask import Flask, request
 from flask.json import jsonify
 
-from execute import execute
-from view import view
+from TLModules.execute import execute
+from TLModules.view import view
 
 app = Flask(__name__)
 

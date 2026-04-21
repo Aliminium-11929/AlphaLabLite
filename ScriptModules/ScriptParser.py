@@ -1,5 +1,5 @@
 from Model.RegEx import RegEx
-from Modules.LineParser import parse_line
+from ScriptModules.LineParser import parse_line
 
 
 def parse(scriptLines: list[str]) -> list[RegEx]:

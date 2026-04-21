@@ -1,4 +1,4 @@
-from Modules.DataReader import DataReader
+from DataControl.TransformationDataReader import DataReader
 
 
 def ConstantSeries(inputConf: list[str], inputSeries: list[list[float]]) -> list[float]:

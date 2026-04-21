@@ -1,12 +1,12 @@
+from Compute.Transformer import ConstantSeries as cs
+from Compute.Transformer import CrossAbove as ca
+from Compute.Transformer import ExponentialMovingAverage as ema
+from Compute.Transformer import Fetch as fetch
+from Compute.Transformer import PortfolioSimulation as ps
+from Compute.Transformer import RateOfChange as roc
+from Compute.Transformer import SimpleMovingAverage as sma
 from Model.InstructionOutput import InstructionOutput
 from Model.RegEx import RegEx
-from Modules.Transformer import ConstantSeries as cs
-from Modules.Transformer import CrossAbove as ca
-from Modules.Transformer import ExponentialMovingAverage as ema
-from Modules.Transformer import Fetch as fetch
-from Modules.Transformer import PortfolioSimulation as ps
-from Modules.Transformer import RateOfChange as roc
-from Modules.Transformer import SimpleMovingAverage as sma
 
 
 def exists(alias: str, instruction_list: list[InstructionOutput]) -> InstructionOutput:

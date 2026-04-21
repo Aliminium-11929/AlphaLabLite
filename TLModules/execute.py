@@ -1,7 +1,8 @@
+from DataControl import ScriptDataControl
 from Model.InstructionOutput import InstructionOutput
 from Model.RegEx import RegEx
 from Model.ScriptOutput import ScriptOutput
-from Modules import ScriptDataControl, ScriptExecuter, ScriptParser
+from ScriptModules import ScriptExecuter, ScriptParser
 
 
 def execute(script: list[str]) -> dict[str, str]:

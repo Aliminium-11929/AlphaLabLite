@@ -1,4 +1,4 @@
-from Modules import ScriptDataControl
+from DataControl import ScriptDataControl
 
 
 def view(id: str, varnames: list[str]) -> dict[str, list[float]]:
