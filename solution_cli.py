@@ -16,13 +16,18 @@ def execute_runner(args):
         for line in scriptlines:
             if line != "":
                 clean_scriptlines.append(line)
-        print(execute(script=scriptlines))
+        output = execute(script=scriptlines)
+        print(output["message"] + ": " + output["result"])
 
 
 def view_runner(args):
     objectID = args.id
     objectVarnames = args.varnames
-    print(view(id=objectID, varnames=objectVarnames))
+    JSON_DICT = view(id=objectID, varnames=objectVarnames)
+    output_str = ""
+    for varname, output in JSON_DICT.items():
+        output_str += varname + ": \n" + " " * 4 + str(output) + "\n\n\n"
+    print(output_str)
 
 
 def main():

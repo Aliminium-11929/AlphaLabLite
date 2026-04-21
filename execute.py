@@ -4,10 +4,10 @@ from Model.ScriptOutput import ScriptOutput
 from Modules import ScriptDataControl, ScriptExecuter, ScriptParser
 
 
-def execute(script: list[str]) -> str:
+def execute(script: list[str]) -> dict[str, str]:
     """Orchastrates the execution of an ordered list of script lines."""
     if len(script) == 0:
-        return "Empty Script. Nothing to do."
+        return {"message": "Empty Script. Nothing to do.", "result": ""}
     regex_list: list[RegEx] = ScriptParser.parse(script)
     instruction_history: list[InstructionOutput] = []
     for i in range(len(regex_list)):
@@ -17,4 +17,4 @@ def execute(script: list[str]) -> str:
     OutputObject = ScriptOutput(instruction_history)
     local_id = str(OutputObject.id)
     ScriptDataControl.write(OutputObject)
-    return "Script successfully executed: " + local_id
+    return {"message": "Script successfully executed", "result": local_id}
