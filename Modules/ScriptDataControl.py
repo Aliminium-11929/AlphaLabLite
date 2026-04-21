@@ -19,10 +19,6 @@ def get(str_id: str) -> dict[str, list[float]]:
     try:
         with open(f"ScriptData/{str_id}.json", "r") as JSON:
             jsonData = json.load(JSON)
-        output = {}
-        outputs_list = jsonData["outputs_list"]
-        for dict in outputs_list:
-            output[dict["varname"]] = dict["output"]
-        return output
+        return jsonData
     except FileNotFoundError:
         raise FileNotFoundError

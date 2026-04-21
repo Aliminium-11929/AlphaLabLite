@@ -10,10 +10,8 @@ class ScriptOutput(object):
     def __init__(self, outputs_list: list[InstructionOutput] = []) -> None:
         self.outputs_list = outputs_list
 
-    def toDict(self):
-        return {
-            "id": str(self.id),
-            "outputs_list": [
-                instruction_output.toDict() for instruction_output in self.outputs_list
-            ],
-        }
+    def toDict(self) -> dict[str, list[float]]:
+        Dict = {}
+        for instruction in self.outputs_list:
+            Dict[instruction.varname] = instruction.output
+        return Dict
