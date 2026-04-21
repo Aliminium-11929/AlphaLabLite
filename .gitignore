@@ -5,3 +5,4 @@ AlphaLabLite.egg-info/
 __pycache__/
 testScript.txt
 ScriptData/
+venv/
