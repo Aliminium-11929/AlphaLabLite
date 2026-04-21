@@ -1,10 +1,7 @@
 Edgebot 2026.pdf
-.env
 Data/
-Modules/__pycache__/
-Model/__pycache__/
+*/__pycache__/
 AlphaLabLite.egg-info/
 __pycache__/
 testScript.txt
 ScriptData/
-test.py
