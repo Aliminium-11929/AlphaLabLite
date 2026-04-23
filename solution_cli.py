@@ -14,9 +14,9 @@ def execute_runner(args):
     except EOFError:
         clean_scriptlines = []
         for line in scriptlines:
-            if line != "":
+            if line.strip() != "":
                 clean_scriptlines.append(line)
-        output = execute(script=scriptlines)
+        output = execute(script=clean_scriptlines)
         print(output["message"] + ": " + output["result"])
 
 
