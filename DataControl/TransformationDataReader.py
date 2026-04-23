@@ -13,5 +13,8 @@ class DataReader(object):
 
     def read(self, dataseries: str):
         """Outputs the row labeled $dataseries$ in list form."""
-        rawList = self.df.loc[dataseries, 1:].tolist()
-        return list(map(lambda x: float(x), rawList))
+        try:
+            rawList = self.df.loc[dataseries, 1:].tolist()
+            return list(map(lambda x: float(x), rawList))
+        except KeyError:
+            raise KeyError

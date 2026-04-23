@@ -1,5 +1,21 @@
 from Model.RegEx import RegEx
-from ScriptModules.LineParser import parse_line
+from ScriptModules.Scripts import SelectCallComponents
+
+
+def parse_line(scriptLine: str) -> RegEx:
+    """Parses a line into the defined regular expression."""
+    # Assuming line is in form: "varname = callname{inputConf}{inputSeries}"
+    varname, callname, inputConf, inputSeries = SelectCallComponents(
+        line=scriptLine,
+    )
+    if varname and callname:
+        return RegEx(
+            varname=varname,
+            callname=callname,
+            inputConf=inputConf,
+            inputSeries=inputSeries,
+        )
+    raise SyntaxError
 
 
 def parse(scriptLines: list[str]) -> list[RegEx]:

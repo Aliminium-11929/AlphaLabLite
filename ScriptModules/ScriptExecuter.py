@@ -1,75 +1,23 @@
-from Compute.Transformer import ConstantSeries as cs
-from Compute.Transformer import CrossAbove as ca
-from Compute.Transformer import ExponentialMovingAverage as ema
-from Compute.Transformer import Fetch as fetch
-from Compute.Transformer import PortfolioSimulation as ps
-from Compute.Transformer import RateOfChange as roc
-from Compute.Transformer import SimpleMovingAverage as sma
 from Model.InstructionOutput import InstructionOutput
 from Model.RegEx import RegEx
-
-
-def exists(alias: str, instruction_list: list[InstructionOutput]) -> InstructionOutput:
-    """Returns the InstructionOutput object associated with the given alias."""
-    for instruction in instruction_list:
-        if alias == instruction.varname:
-            return instruction
-    raise SyntaxError
+from ScriptModules.Scripts import matchTransformation, parseAlias
 
 
 def execute(
     regex: RegEx, instruction_history: list[InstructionOutput]
 ) -> InstructionOutput:
-    """Executes a regular expression by taking into consideration variables from previous lines of the script."""
+    """Executes a regular expression by taking into consideration set variables from previous lines of the script."""
     regex_output = InstructionOutput(varname=regex.varname)
     local_inputSeries = []
 
-    # RegEx:
-    # varname: str
-    # callname: str
-    # inputConf: list[str]
-    # inputSeries: list[str]
-
     def alias_output_finder():
-        for alias in regex.inputSeries:
-            local_inputSeries.append(exists(alias, instruction_history).output)
+        """Parses the inputSeries from variable names into their previous results."""
+        if regex.inputSeries:
+            for alias in regex.inputSeries:
+                local_inputSeries.append(parseAlias(alias, instruction_history))
 
-    match regex.callname:
-        # Possible callnames: [Fetch, SimpleMovingAverage, ExponentialMovingAverage, RateOfChange, CrossAbove, ConstantSeries, PortfolioSimulation]
-        case "Fetch":
-            regex_output.output = fetch(
-                inputConf=regex.inputConf,
-            )
-        case "SimpleMovingAverage":
-            alias_output_finder()
-            regex_output.output = sma(
-                inputConf=regex.inputConf, inputSeries=local_inputSeries
-            )
-        case "ExponentialMovingAverage":
-            alias_output_finder()
-            regex_output.output = ema(
-                inputConf=regex.inputConf, inputSeries=local_inputSeries
-            )
-        case "RateOfChange":
-            alias_output_finder()
-            regex_output.output = roc(
-                inputConf=regex.inputConf, inputSeries=local_inputSeries
-            )
-        case "CrossAbove":
-            alias_output_finder()
-            regex_output.output = ca(
-                inputSeries=local_inputSeries,
-            )
-        case "ConstantSeries":
-            alias_output_finder()
-            regex_output.output = cs(
-                inputConf=regex.inputConf, inputSeries=local_inputSeries
-            )
-        case "PortfolioSimulation":
-            alias_output_finder()
-            regex_output.output = ps(
-                inputConf=regex.inputConf, inputSeries=local_inputSeries
-            )
-        case _:
-            raise SyntaxError
+    alias_output_finder()
+    regex_output.output = matchTransformation(
+        regex.callname, regex.inputConf, local_inputSeries
+    )
     return regex_output
