@@ -19,22 +19,20 @@ def SelectCallComponents(
     seriesEnd = 0
     flag = False
     for i in range(len(line)):
-        if not flag:
-            match line[i]:
-                case "=":
-                    separator = i
-                case "{":
-                    confStart = i + 1
-                case "}":
-                    confEnd = i
-                    flag = True
-        else:
-            match line[i]:
-                case "{":
+        match line[i]:
+            case "=":
+                separator = i
+            case "{":
+                if flag:
                     seriesStart = i + 1
-                case "}":
+                    continue
+                confStart = i + 1
+            case "}":
+                if flag:
                     seriesEnd = i
                     break
+                confEnd = i
+                flag = True
     varname: str | None = None if separator == 0 else line[:separator].strip()
     callname: str | None = (
         None
