@@ -5,9 +5,7 @@ from ScriptModules.Scripts import SelectCallComponents
 def parse_line(scriptLine: str) -> RegEx:
     """Parses a line into the defined regular expression."""
     # Assuming line is in form: "varname = callname{inputConf}{inputSeries}"
-    varname, callname, inputConf, inputSeries = SelectCallComponents(
-        line=scriptLine,
-    )
+    varname, callname, inputConf, inputSeries = SelectCallComponents(line=scriptLine)
     if varname and callname:  # To make sure the syntax is valid.
         return RegEx(
             varname=varname,
