@@ -8,7 +8,7 @@ def parse_line(scriptLine: str) -> RegEx:
     varname, callname, inputConf, inputSeries = SelectCallComponents(
         line=scriptLine,
     )
-    if varname and callname:
+    if varname and callname:  # To make sure the syntax is valid.
         return RegEx(
             varname=varname,
             callname=callname,
@@ -25,5 +25,5 @@ def parse(scriptLines: list[str]) -> list[RegEx]:
         for scriptLine in scriptLines:
             regex_list.append(parse_line(scriptLine))
         return regex_list
-    except:
+    except SyntaxError:
         raise SyntaxError
