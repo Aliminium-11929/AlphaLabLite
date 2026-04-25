@@ -1,3 +1,4 @@
+# AlphaLabLite
 # Setup
 1. Clone the repository:
    `git clone https://github.com/Aliminium-11929/AlphaLabLite`
