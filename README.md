@@ -1,4 +1,5 @@
 # **AlphaLabLite**
+AlphaLabLite is a time-series transformation engine exposed through both a REST-API and a CMD interface. It allows the user or trader to write scripts to execute multiple standard transformations on some time-series, including simple and exponential moving averages and a rate of change, as well as perform a portfolio simulation given the needed parameters.
 # Setup
 1. Clone the repository:
    `git clone https://github.com/Aliminium-11929/AlphaLabLite`
