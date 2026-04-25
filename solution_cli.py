@@ -4,7 +4,7 @@ from TLModules.execute import execute
 from TLModules.view import view
 
 
-def execute_runner(args):
+def execute_runner(args: argparse.Namespace) -> None:
     scriptlines: list[str] = []
     try:
         newLine = input()
@@ -20,7 +20,7 @@ def execute_runner(args):
         print(output["message"] + ": " + output["result"])
 
 
-def view_runner(args):
+def view_runner(args: argparse.Namespace) -> None:
     objectID = args.id
     objectVarnames = args.varnames
     JSON_DICT = view(id=objectID, varnames=objectVarnames)
