@@ -1,5 +1,5 @@
 from Model.RegEx import RegEx
-from ScriptModules.Scripts import SelectCallComponents
+from ScriptModules.Helpers import SelectCallComponents
 
 
 def parse_line(scriptLine: str) -> RegEx:

@@ -1,6 +1,6 @@
 from Model.InstructionOutput import InstructionOutput
 from Model.RegEx import RegEx
-from ScriptModules.Scripts import matchTransformation, parseAlias
+from ScriptModules.Helpers import matchTransformation, parseAlias
 
 
 def execute(

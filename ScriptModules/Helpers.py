@@ -1,10 +1,4 @@
-from Compute.Transformer import ConstantSeries as cs
-from Compute.Transformer import CrossAbove as ca
-from Compute.Transformer import ExponentialMovingAverage as ema
-from Compute.Transformer import Fetch as fetch
-from Compute.Transformer import PortfolioSimulation as ps
-from Compute.Transformer import RateOfChange as roc
-from Compute.Transformer import SimpleMovingAverage as sma
+from Compute import Transformer as Transformer
 from Model.InstructionOutput import InstructionOutput
 
 
@@ -67,18 +61,28 @@ def matchTransformation(
     # Possible callnames: [Fetch, SimpleMovingAverage, ExponentialMovingAverage, RateOfChange, CrossAbove, ConstantSeries, PortfolioSimulation]
     match callname:
         case "Fetch":
-            return fetch(inputConf=inputConf)
+            return Transformer.fetch(inputConf=inputConf)
         case "SimpleMovingAverage":
-            return sma(inputConf=inputConf, inputSeries=inputSeries)
+            return Transformer.SimpleMovingAverage(
+                inputConf=inputConf, inputSeries=inputSeries
+            )
         case "ExponentialMovingAverage":
-            return ema(inputConf=inputConf, inputSeries=inputSeries)
+            return Transformer.ExponentialMovingAverage(
+                inputConf=inputConf, inputSeries=inputSeries
+            )
         case "RateOfChange":
-            return roc(inputConf=inputConf, inputSeries=inputSeries)
+            return Transformer.RateOfChange(
+                inputConf=inputConf, inputSeries=inputSeries
+            )
         case "CrossAbove":
-            return ca(inputSeries=inputSeries)
+            return Transformer.CrossAbove(inputSeries=inputSeries)
         case "ConstantSeries":
-            return cs(inputConf=inputConf, inputSeries=inputSeries)
+            return Transformer.ConstantSeries(
+                inputConf=inputConf, inputSeries=inputSeries
+            )
         case "PortfolioSimulation":
-            return ps(inputConf=inputConf, inputSeries=inputSeries)
+            return Transformer.PortfolioSimulation(
+                inputConf=inputConf, inputSeries=inputSeries
+            )
         case _:
             raise SyntaxError
